@@ -65,7 +65,7 @@ public class Application {
 
 		// HINT: what does it mean to prefer composition to inheritance?
 		Player player = new Player("Tarnished", '@', 300);
-		world.addPlayer(player, gameMap.at(36, 10));
+		world.addPlayer(player, gameMap.at(23, 16));
 
 		world.run();
 	}

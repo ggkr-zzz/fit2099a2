@@ -24,6 +24,7 @@ public class LoneWolf extends Actor {
 
     public LoneWolf() {
         super("Lone Wolf", 'h', 102);
+        this.addCapability(EnemyType.CANINE_TYPE);
         this.behaviours.put(999, new WanderBehaviour());
     }
 
@@ -40,8 +41,9 @@ public class LoneWolf extends Actor {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
-            if(action != null)
+            if(action != null) {
                 return action;
+            }
         }
         return new DoNothingAction();
     }
@@ -59,9 +61,15 @@ public class LoneWolf extends Actor {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)){
             actions.add(new AttackAction(this, direction));
-            // HINT 1: The AttackAction above allows you to attak the enemy with your intrinsic weapon.
+            // HINT 1: The AttackAction above allows you to attack the enemy with your intrinsic weapon.
             // HINT 1: How would you attack the enemy with a weapon?
+            behaviours.put(500, new FollowBehaviour(otherActor)); // follows the other actor
         }
+
+        if(otherActor.capabilitiesList() != this.capabilitiesList()) {
+            behaviours.put(0, new AttackBehaviour(otherActor));         // if the other actor has different capabilities, add AttackBehaviour against the other actor, highest priority
+        }
+
         return actions;
     }
 
