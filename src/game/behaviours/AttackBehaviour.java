@@ -1,10 +1,11 @@
-package game;
+package game.behaviours;
 
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
+import game.actions.AttackAction;
 
 /**
  * A class that implements AttackAction when hostile enemy is 1 block away
@@ -38,7 +39,10 @@ public class AttackBehaviour implements Behaviour {
         for (Exit exit : here.getExits()) {                 // here it checks all the possible exits of current actor
             Location destination = exit.getDestination();
             if (destination.getActor() == target) {         // if exits contain target actor, it returns a new attack action. Direction is null as it is a behaviour.
-                    return new AttackAction(target, null);
+                if (actor.getWeaponInventory().size() > 0) {
+                    return new AttackAction(target, null, actor.getWeaponInventory().get(0)); // grabs top most weapon in inventory to attack with
+                }
+                return new AttackAction(target, null);                                  // otherwise attacks with intrinsic weapon
             }
         }
 

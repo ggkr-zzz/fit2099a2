@@ -1,4 +1,4 @@
-package game;
+package game.actors;
 
 public enum EnemyType {
     SKELETAL_TYPE,
