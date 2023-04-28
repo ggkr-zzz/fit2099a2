@@ -12,7 +12,7 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
  * Modified by:
  *
  */
-public class Club extends WeaponItem implements Buyable {
+public class Club extends WeaponItem {
 
     private final int buyPrice = 600;
     private final int sellPrice = 100;
