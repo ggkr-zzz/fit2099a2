@@ -62,7 +62,7 @@ public class Application {
 				exception.printStackTrace();
 			}
 		}
-
+		gameMap.at(50,11).setGround(new Graveyard());
 		//gameMap.at(23, 17).addActor(new LoneWolf());
 		gameMap.at(23, 17).addActor(new GiantCrab());
 
@@ -70,9 +70,11 @@ public class Application {
 
 		//gameMap.at(31, 19).addActor(new HeavySkeletalSwordsman());
 
+		gameMap.at(38, 11).addActor(new Trader());
+		
 		// HINT: what does it mean to prefer composition to inheritance?
 		Player player = new Player("Tarnished", '@', 300);
-		world.addPlayer(player, gameMap.at(23, 16));
+		world.addPlayer(player, gameMap.at(44, 11));
 
 		world.run();
 
