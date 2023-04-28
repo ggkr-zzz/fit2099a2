@@ -9,6 +9,7 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
+import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
 import game.actions.AttackAction;
 import game.behaviours.AttackBehaviour;
@@ -27,6 +28,7 @@ public abstract class Enemy extends Actor {
         super(name, displayChar, hitPoints);
         this.addCapability(enemyType);
         this.behaviours.put(999, new WanderBehaviour());
+        this.behaviours.put(0, new AttackBehaviour());
         this.intrinsicWeapon = intrinsicWeapon;
     }
 
@@ -41,23 +43,6 @@ public abstract class Enemy extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-
-        Location here = map.locationOf(this);
-        for (Exit exit : here.getExits()) {                     // here it checks all the possible exits of current actor
-            Location destination = exit.getDestination();
-
-            if (destination.containsAnActor()) {
-                Actor otherActor = destination.getActor();
-
-                if (this.capabilitiesList() != otherActor.capabilitiesList()) {     // if exits contain target actor, it checks that the other actor has different capabilities
-                    behaviours.put(0, new AttackBehaviour(otherActor));
-                }
-                if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {        // if exit contains actor with HOSTILE_TO_ENEMY status, follows the actor
-                    behaviours.put(500, new FollowBehaviour(otherActor));       // follow player forever
-                }
-            }
-        }
-
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
             if(action != null) {
@@ -78,12 +63,19 @@ public abstract class Enemy extends Actor {
     @Override
     public ActionList allowableActions(Actor otherActor, String direction, GameMap map) {
         ActionList actions = new ActionList();
-        if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
-            actions.add(new AttackAction(this, direction));
-            // HINT 1: The AttackAction above allows you to attack the enemy with your intrinsic weapon.
-            // HINT 1: How would you attack the enemy with a weapon?
-            // add weapon attack action??
 
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {        // if exit contains actor with HOSTILE_TO_ENEMY status, follows the actor
+            behaviours.put(500, new FollowBehaviour(otherActor));       // follow player forever
+        }
+
+        if(otherActor.capabilitiesList() != this.capabilitiesList()) {      // if the other actor and current actor has different capabilities, allow attack
+            actions.add(new AttackAction(this, direction));
+        }
+
+        if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {        // if other actor is player, add option for player to attack with any weapon in inventory
+            for (Weapon weapon : otherActor.getWeaponInventory()) {
+                actions.add(new AttackAction(this, direction, weapon));
+            }
         }
 
         return actions;

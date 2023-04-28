@@ -73,7 +73,7 @@ public class LoneWolf extends Actor {
         }
 
         if(otherActor.capabilitiesList() != this.capabilitiesList()) {
-            behaviours.put(0, new AttackBehaviour(otherActor));         // if the other actor has different capabilities, add AttackBehaviour against the other actor, highest priority
+            behaviours.put(0, new AttackBehaviour());         // if the other actor has different capabilities, add AttackBehaviour against the other actor, highest priority
         }
 
         return actions;
