@@ -46,8 +46,7 @@ public class AttackBehaviour implements Behaviour {
                 Actor otherActor = destination.getActor();
 
 
-                //if ( (actor.hasCapability(Status.AOE_CAPABLE)) && (!(rand.nextInt(100) <= 50)) ) {  // 50% chance to area attack if capable
-                if ( (actor.hasCapability(Status.AOE_CAPABLE)) ) {
+                if ( (actor.hasCapability(Status.AOE_CAPABLE)) && (!(rand.nextInt(100) <= 50)) ) {  // 50% chance to area attack if capable
                     if (actor.getWeaponInventory().size() > 0) {
                         return new AreaAttackAction(actor.getWeaponInventory().get(0)); // grabs top most weapon in inventory to attack with
                     }
