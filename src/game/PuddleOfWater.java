@@ -3,22 +3,22 @@ package game;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
-import game.actors.HeavySkeletalSwordsman;
+import game.actors.GiantCrab;
 import game.actors.LoneWolfEnemy;
 
 import java.util.List;
 
 /**
- * A Graveyard Ground
+ * A Puddle of Water Ground
  * Created by:
  * @author Abdus Sami
  * Modified by:
  *
  */
-public class Graveyard extends Ground {
+public class PuddleOfWater extends Ground {
 
-    public Graveyard() {
-        super('n');
+    public PuddleOfWater() {
+        super('~');
     }
 
     @Override
@@ -28,8 +28,8 @@ public class Graveyard extends Ground {
 
     public void tick(Location location) {
         int chance = RandomNumberGenerator.getRandomInt(1, 100);
-        if ((chance <= 27) && !(location.containsAnActor())) {
-            location.addActor(new HeavySkeletalSwordsman());
+        if ((chance <= 50) && !(location.containsAnActor())) {
+            location.addActor(new GiantCrab());
         }
 
     }
