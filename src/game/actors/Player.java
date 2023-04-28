@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
 import game.Club;
 import game.Resettable;
+import game.RuneManager;
 import game.Status;
 
 /**
@@ -33,6 +34,7 @@ public class Player extends Actor implements Resettable {
 		super(name, displayChar, hitPoints);
 		this.addCapability(Status.HOSTILE_TO_ENEMY);
 		this.addWeaponToInventory(new Club());
+		RuneManager.setRunes(this, 1000);
 	}
 
 	@Override
@@ -42,6 +44,8 @@ public class Player extends Actor implements Resettable {
 			return lastAction.getNextAction();
 
 		// return/print the console menu
+
+		display.println("Tarnished(" + hitPoints + "/" + maxHitPoints +") runes: " + RuneManager.getRunes(this));
 		return menu.showMenu(this, actions, display);
 	}
 
