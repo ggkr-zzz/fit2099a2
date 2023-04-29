@@ -18,14 +18,15 @@ import java.util.Map;
 /**
  * Trader character
  *
- * Created by:
  * @author Abdus Sami
  * Modified by:
  *
  */
 public class Trader extends Actor {
-    private Map<Integer, Behaviour> behaviours = new HashMap<>();
 
+    /**
+     * A constructor for the Trader class
+     */
     public Trader() {
 
         super("Trader", 'K', 100);
