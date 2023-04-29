@@ -8,6 +8,7 @@ import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import edu.monash.fit2099.engine.weapons.WeaponItem;
 import game.actors.Status;
 import game.actions.AttackAction;
 import game.actions.DeathAction;
@@ -23,6 +24,10 @@ public class PileOfBones extends Actor {
         this.previousActor = previousActor;
         this.addCapability(EnemyType.SKELETAL_TYPE);
         this.addCapability(Status.PILE_OF_BONES);
+
+        for (WeaponItem weapon : previousActor.getWeaponInventory()) {
+            this.addWeaponToInventory(weapon);
+        }
     }
 
     @Override

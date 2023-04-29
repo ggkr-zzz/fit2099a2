@@ -10,5 +10,6 @@ public enum Status {
     RESPAWNABLE,
     RESTING,
     AOE_CAPABLE,
+    AOE_CAPABLE_WEAPON,
     PILE_OF_BONES
 }

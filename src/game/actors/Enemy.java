@@ -10,6 +10,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import edu.monash.fit2099.engine.weapons.WeaponItem;
+import game.actions.AreaAttackAction;
 import game.actors.Status;
 import game.actions.AttackAction;
 import game.actions.DespawnAction;
@@ -87,9 +89,18 @@ public abstract class Enemy extends Actor {
         }
 
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {        // if other actor is player, add option for player to attack with any weapon in inventory
-            for (Weapon weapon : otherActor.getWeaponInventory()) {
+            for (WeaponItem weapon : otherActor.getWeaponInventory()) {
                 actions.add(new AttackAction(this, direction, weapon));
+
+
+               if (weapon.hasCapability(Status.AOE_CAPABLE_WEAPON)) {
+                   actions.add(new AreaAttackAction(weapon));
+                }
             }
+        }
+
+        if (otherActor.hasCapability(Status.AOE_CAPABLE)) {
+            actions.add(new AreaAttackAction());
         }
 
         return actions;
