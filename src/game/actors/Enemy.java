@@ -24,11 +24,17 @@ public abstract class Enemy extends Actor {
     private Map<Integer, Behaviour> behaviours = new HashMap<>();
     private IntrinsicWeapon intrinsicWeapon;    //UNSURE WHAT TO PUT HERE private/protected/final etc.
 
+    protected int attackPriority = 0;
+    protected int followPriority = 500;
+    protected int wanderPriority = 999;
+
+
+
     public Enemy(String name, char displayChar, int hitPoints, EnemyType enemyType, IntrinsicWeapon intrinsicWeapon) {
         super(name, displayChar, hitPoints);
         this.addCapability(enemyType);
-        this.behaviours.put(999, new WanderBehaviour());
-        this.behaviours.put(0, new AttackBehaviour());
+        this.behaviours.put(wanderPriority, new WanderBehaviour());
+        this.behaviours.put(attackPriority, new AttackBehaviour());
         this.intrinsicWeapon = intrinsicWeapon;
     }
 
@@ -43,6 +49,14 @@ public abstract class Enemy extends Actor {
      */
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
+        if (!behaviours.containsKey(followPriority)) {
+            if(Math.random() <= 0.1){
+                display.println(this.name + "is despawned");
+                map.removeActor(this);
+                return new DoNothingAction();
+        }
+    }
+
         for (Behaviour behaviour : behaviours.values()) {
             Action action = behaviour.getAction(this, map);
             if(action != null) {
@@ -65,10 +79,10 @@ public abstract class Enemy extends Actor {
         ActionList actions = new ActionList();
 
         if (otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {        // if exit contains actor with HOSTILE_TO_ENEMY status, follows the actor
-            behaviours.put(500, new FollowBehaviour(otherActor));       // follow player forever
+            behaviours.put(followPriority, new FollowBehaviour(otherActor));       // follow player forever
         }
 
-        if(otherActor.capabilitiesList() != this.capabilitiesList()) {      // if the other actor and current actor has different capabilities, allow attack
+        if(!otherActor.capabilitiesList().equals(this.capabilitiesList())) {      // if the other actor and current actor has different capabilities, allow attack
             actions.add(new AttackAction(this, direction));
         }
 

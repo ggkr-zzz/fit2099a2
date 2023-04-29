@@ -55,7 +55,7 @@ public class AttackBehaviour implements Behaviour {
 
 
 
-                if (actor.capabilitiesList() != otherActor.capabilitiesList()) {     // if exits contain target actor, it checks that the other actor has different capabilities
+                if (!actor.capabilitiesList().equals(otherActor.capabilitiesList())) {     // if exits contain target actor, it checks that the other actor has different capabilities
                     if (actor.getWeaponInventory().size() > 0) {
                         return new AttackAction(otherActor, null, actor.getWeaponInventory().get(0)); // grabs top most weapon in inventory to attack with
                     }
