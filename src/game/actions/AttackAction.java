@@ -5,8 +5,11 @@ import java.util.Random;
 import edu.monash.fit2099.engine.actions.Action;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.positions.GameMap;
+import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
+import game.actors.EnemyType;
+import game.actors.PileOfBones;
 
 /**
  * An Action to attack another Actor.
@@ -83,9 +86,25 @@ public class AttackAction extends Action {
 		String result = actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.";
 		target.hurt(damage);
 		if (!target.isConscious()) {
-			result += new DeathAction(actor).execute(target, map);
-			if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)){
-				result += new GetRunesAction(actor).execute(target, map);
+
+			if (target.hasCapability(Status.PILE_OF_BONES)) {				// if target is a pile of bones, it kills it
+				System.out.println("bones");
+				result += new DeathAction(actor).execute(target, map);
+			}
+
+			else if ( target.hasCapability(EnemyType.SKELETAL_TYPE) ) {		// if target is skeletal type, it swaps it for pile of bones
+				Location location = map.locationOf(target);
+				map.removeActor(target);
+				map.addActor(new PileOfBones(target), location);
+				result += "\n" + target + " turns into a pile of bones.";
+			}
+
+
+			else {															// else normal death
+				result += new DeathAction(actor).execute(target, map);
+				if (actor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
+					result += new GetRunesAction(actor).execute(target, map);
+				}
 			}
 		}
 

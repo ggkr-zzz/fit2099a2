@@ -10,6 +10,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.Resettable;
 import game.Status;
 import game.actions.AttackAction;
 import game.actions.DespawnAction;
@@ -28,6 +29,7 @@ public abstract class Enemy extends Actor {
     protected int attackPriority = 0;
     protected int followPriority = 500;
     protected int wanderPriority = 999;
+
 
 
 
@@ -100,5 +102,11 @@ public abstract class Enemy extends Actor {
 
         return new IntrinsicWeapon(intrinsicWeapon.damage(), intrinsicWeapon.verb(), intrinsicWeapon.chanceToHit());
     }
+
+    public void resetHp() {
+        this.resetMaxHp(this.getMaxHp());
+    }
+
+
 }
 

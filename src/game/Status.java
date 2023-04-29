@@ -9,5 +9,6 @@ public enum Status {
     HOSTILE_TO_ENEMY,
     RESPAWNABLE,
     RESTING,
-    AOE_CAPABLE
+    AOE_CAPABLE,
+    PILE_OF_BONES
 }

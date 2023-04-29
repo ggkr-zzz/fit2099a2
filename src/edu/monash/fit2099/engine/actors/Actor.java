@@ -12,6 +12,7 @@ import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.weapons.Weapon;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
+import game.Resettable;
 
 import java.util.ArrayList;
 import java.util.Collections;
