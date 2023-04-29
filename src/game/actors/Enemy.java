@@ -12,6 +12,7 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import edu.monash.fit2099.engine.weapons.Weapon;
 import game.Status;
 import game.actions.AttackAction;
+import game.actions.DespawnAction;
 import game.behaviours.AttackBehaviour;
 import game.behaviours.Behaviour;
 import game.behaviours.FollowBehaviour;
@@ -51,9 +52,7 @@ public abstract class Enemy extends Actor {
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         if (!behaviours.containsKey(followPriority)) {
             if(Math.random() <= 0.1){
-                display.println(this.name + "is despawned");
-                map.removeActor(this);
-                return new DoNothingAction();
+                return new DespawnAction();
         }
     }
 
