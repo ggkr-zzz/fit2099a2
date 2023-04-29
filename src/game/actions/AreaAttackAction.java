@@ -48,7 +48,7 @@ public class AreaAttackAction extends Action {
         }
 
         Location here = map.locationOf(actor);
-
+        finalMessageArr.add(actor + " " + weapon.verb() +" the area");
         for (Exit exit : here.getExits()) {                     // here it checks all the possible exits of current actor
             Location destination = exit.getDestination();
 
