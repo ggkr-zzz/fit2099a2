@@ -32,6 +32,7 @@ public class GetRunesAction extends Action {
         int targetRunes = RuneManager.getRunes(target);
         int playerRunes = RuneManager.getRunes(attacker);
         RuneManager.setRunes(attacker, playerRunes + targetRunes);
+        RuneManager.removeActor(target);
         result += System.lineSeparator() + menuDescription(target);
         return result;
     }

@@ -13,9 +13,6 @@ import edu.monash.fit2099.engine.weapons.WeaponItem;
  *
  */
 public class Club extends WeaponItem {
-
-    private final int buyPrice = 600;
-    private final int sellPrice = 100;
     /**
      * Constructor
      */
@@ -23,10 +20,6 @@ public class Club extends WeaponItem {
         super("Club", '!', 103, "bonks", 80);
         RuneManager.setBuyPrice(this, 600);
         RuneManager.setSellPrice(this, 100);
-    }
-
-    public int getPrice(){
-        return buyPrice;
     }
 
     @Override

@@ -39,4 +39,8 @@ public class RuneManager{
         itemSell.put(item, runes);
     }
 
+    public static void removeActor(Actor actor) {
+        runeTracker.remove(actor);
+    }
+
 }
