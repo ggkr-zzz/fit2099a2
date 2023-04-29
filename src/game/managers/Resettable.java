@@ -1,4 +1,4 @@
-package game;
+package game.managers;
 
 /**
  * A resettable interface

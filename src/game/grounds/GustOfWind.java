@@ -5,7 +5,7 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Ground;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.NumberRange;
-import game.RandomNumberGenerator;
+import game.utils.RandomNumberGenerator;
 import game.actors.GiantDog;
 import game.actors.LoneWolfEnemy;
 

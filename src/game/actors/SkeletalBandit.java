@@ -1,8 +1,8 @@
 package game.actors;
 
 import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
-import game.RandomNumberGenerator;
-import game.RuneManager;
+import game.utils.RandomNumberGenerator;
+import game.managers.RuneManager;
 
 public class SkeletalBandit extends Enemy {
     public SkeletalBandit() {
