@@ -13,14 +13,21 @@ import game.managers.RuneManager;
  *
  */
 public class GetRunesAction extends Action {
+    /**
+     * An Actor object that holds the attacker
+     */
     private Actor attacker;
 
+    /**
+     * A constructor for the GetRunesAction class
+     * @param actor An Actor input that represents the attacker
+     */
     public GetRunesAction(Actor actor) {
         this.attacker = actor;
     }
 
     /**
-     * The target's rune is retrieved and added to the player's rune amount
+     * A method to retrieve the target's runes and add to the player's rune amount
      *
      * @param target The actor that drops runes.
      * @param map The map the actor is on.
@@ -37,6 +44,11 @@ public class GetRunesAction extends Action {
         return result;
     }
 
+    /**
+     * A method to print the action to the UI
+     * @param actor The actor performing the action.
+     * @return null (Is not a menu option)
+     */
     @Override
     public String menuDescription(Actor actor) {
         return null;

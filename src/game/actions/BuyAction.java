@@ -9,7 +9,6 @@ import game.managers.RuneManager;
 
 /**
  * An Action to buy from the trader
- * Created by:
  * @author Abdus Sami
  * Modified by:
  *
@@ -17,15 +16,15 @@ import game.managers.RuneManager;
 
 public class BuyAction extends Action{
     /**
-     * The player object
+     * An Actor object that holds the player
      */
     private Actor player;
     /**
-     * The trader object
+     * An Actor object that holds the trader
      */
     private Actor trader;
     /**
-     * A weapon object
+     * A WeaponItem object that holds the weapon
      */
     private WeaponItem weapon;
     /**
@@ -33,12 +32,24 @@ public class BuyAction extends Action{
      */
     protected Display display = new Display();
 
+    /**
+     * A constructor for the BuyAction class
+     * @param player An Actor input that represents the player
+     * @param trader An Actor input that represents the trader
+     * @param weapon A WeaponItem that represents the weapon to be bought
+     */
     public BuyAction(Actor player, Actor trader, WeaponItem weapon) {
         this.player = player;
         this.trader = trader;
         this.weapon = weapon;
     }
 
+    /**
+     * A method to execute the buy interaction
+     * @param player The actor performing the action.
+     * @param map The map the actor is on.
+     * @return result of the action to be displayed on the UI
+     */
     public String execute(Actor player, GameMap map){
         int cost = RuneManager.getBuyPrice(weapon);
         int runes  = RuneManager.getRunes(player);
@@ -53,7 +64,11 @@ public class BuyAction extends Action{
 
     }
 
-
+    /**
+     * A method to print the action to the UI
+     * @param actor The actor performing the action.
+     * @return A string input representing the string to be displayed
+     */
     public String menuDescription(Actor actor){
         return actor + " buys " + weapon.toString() + " from Merchant Kale for " + RuneManager.getBuyPrice(weapon);
     }

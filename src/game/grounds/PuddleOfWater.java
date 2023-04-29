@@ -10,22 +10,34 @@ import game.actors.*;
 
 /**
  * A Puddle of Water Ground
- * Created by:
  * @author Abdus Sami
  * Modified by:
  *
  */
 public class PuddleOfWater extends Ground {
 
+    /**
+     * A constructor for the PuddleOfWater class
+     */
     public PuddleOfWater() {
         super('~');
     }
 
+    /**
+     * A method that allows the Ground to be passable for Actors
+     * @param actor the Actor to check
+     * @return true, indicating terrain is passable
+     */
     @Override
     public boolean canActorEnter(Actor actor) {
         return true;
     }
 
+    /**
+     * A method that allows the Ground to spawn enemies every turn depending
+     * on a spawn chance and which side of the map the ground is on
+     * @param location The location of the Ground
+     */
     public void tick(Location location) {
         int chance = RandomNumberGenerator.getRandomInt(1, 100);
         int xLocation = location.x();

@@ -4,7 +4,15 @@ import edu.monash.fit2099.engine.weapons.IntrinsicWeapon;
 import game.utils.RandomNumberGenerator;
 import game.managers.RuneManager;
 
+/**
+ * A Giant Dog enemy
+ * @author Abdus Sami
+ */
 public class GiantDog extends Enemy {
+
+    /**
+     * A constructor for the GiantDog class
+     */
     public GiantDog() {
         super("Giant Dog", 'G', 693, EnemyType.CANINE_TYPE, new IntrinsicWeapon(314, "slams", 90));
         this.addCapability(Status.AOE_CAPABLE);
