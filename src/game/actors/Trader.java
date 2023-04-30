@@ -7,10 +7,13 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
+import game.managers.RuneManager;
 import game.weapons.Club;
 import game.actions.BuyAction;
 import game.actions.SellAction;
 import game.behaviours.Behaviour;
+import game.weapons.Grossmesser;
+import game.weapons.Scimitar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +34,9 @@ public class Trader extends Actor {
 
         super("Trader", 'K', 100);
         Club club = new Club();
+        Scimitar scimitar = new Scimitar();
         addWeaponToInventory(club);
+        addWeaponToInventory(scimitar);
     }
 
     /**
@@ -61,10 +66,14 @@ public class Trader extends Actor {
         ActionList actions = new ActionList();
         if(otherActor.hasCapability(Status.HOSTILE_TO_ENEMY)) {
             for (WeaponItem weapon : getWeaponInventory()){
-                actions.add(new BuyAction(otherActor, this, weapon));
+                if (RuneManager.getBuyPrice(weapon) != -1) {
+                    actions.add(new BuyAction(otherActor, this, weapon));
+                }
             }
             for (WeaponItem weapon : otherActor.getWeaponInventory()){
-                actions.add(new SellAction(otherActor, this, weapon));
+                if (RuneManager.getSellPrice(weapon) != -1) {
+                    actions.add(new SellAction(otherActor, this, weapon));
+                }
             }
         }
 

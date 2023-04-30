@@ -7,19 +7,19 @@ import game.actors.Status;
 import game.managers.RuneManager;
 
 /**
- * A simple weapon that can be used to attack the enemy.
- * It deals 103 damage with 80% hit rate
+ * A curved sword carried around by the Skeletal Bandit
  * Created by:
- * @author Adrian Kristanto
+ * @author Abdus Sami
  * Modified by:
  *
  */
-public class Grossmesser extends WeaponItem {
+public class Scimitar extends WeaponItem {
     /**
      * Constructor
      */
-    public Grossmesser() {
-        super("Grossmesser", '?', 115, "attacks", 85);
+    public Scimitar() {
+        super("Scimitar", 's', 118, "slashes", 88);
+        RuneManager.setBuyPrice(this, 600);
         RuneManager.setSellPrice(this, 100);
         this.addCapability(Status.AOE_CAPABLE_WEAPON);
     }

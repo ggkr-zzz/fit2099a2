@@ -45,7 +45,8 @@ public class RuneManager{
      * @return An integer representing buy price
      */
     public static int getBuyPrice(Item item) {
-        return itemBuy.get(item);
+        if (itemBuy.containsKey(item)) {return itemBuy.get(item);}
+        return -1;
     }
 
     /**
@@ -54,7 +55,8 @@ public class RuneManager{
      * @return An integer representing sell price
      */
     public static int getSellPrice(Item item) {
-        return itemSell.get(item);
+        if (itemSell.containsKey(item)) {return itemSell.get(item);}
+        return -1;
     }
 
     /**
