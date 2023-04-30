@@ -9,6 +9,8 @@ import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.World;
 import game.actions.AreaAttackAction;
 import game.actors.*;
+import game.grounds.*;
+import game.utils.FancyMessage;
 
 /**
  * The main class to start the game.
@@ -62,19 +64,21 @@ public class Application {
 				exception.printStackTrace();
 			}
 		}
-		gameMap.at(50,11).setGround(new Graveyard());
+		//gameMap.at(50,11).setGround(new Graveyard());
 		//gameMap.at(23, 17).addActor(new LoneWolf());
-		gameMap.at(23, 17).addActor(new GiantCrab());
+		//gameMap.at(23, 17).addActor(new GiantCrab());
 
-		gameMap.at(24, 17).addActor(new LoneWolfEnemy());
 
-		//gameMap.at(31, 19).addActor(new HeavySkeletalSwordsman());
-
+		gameMap.at(44, 12).addActor(new HeavySkeletalSwordsman());
+		gameMap.at(44, 10).addActor(new PileOfBones(new HeavySkeletalSwordsman()));
+		gameMap.at(45, 11).addActor(new PileOfBones(new HeavySkeletalSwordsman()));
+		gameMap.at(45, 18).addActor(new PileOfBones(new HeavySkeletalSwordsman()));
+		gameMap.at(44, 11).addActor(new GiantCrab());
 		gameMap.at(38, 11).addActor(new Trader());
 		
 		// HINT: what does it mean to prefer composition to inheritance?
-		Player player = new Player("Tarnished", '@', 300);
-		world.addPlayer(player, gameMap.at(44, 11));
+		Player player = new Player("Tarnished", '@', 10000);
+		world.addPlayer(player, gameMap.at(40, 11));
 
 		world.run();
 

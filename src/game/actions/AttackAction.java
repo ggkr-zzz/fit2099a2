@@ -88,7 +88,6 @@ public class AttackAction extends Action {
 		if (!target.isConscious()) {
 
 			if (target.hasCapability(Status.PILE_OF_BONES)) {				// if target is a pile of bones, it kills it
-				System.out.println("bones");
 				result += new DeathAction(actor).execute(target, map);
 			}
 

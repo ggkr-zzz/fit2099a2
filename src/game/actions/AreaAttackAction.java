@@ -6,6 +6,9 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
+import game.actors.EnemyType;
+import game.actors.PileOfBones;
+import game.actors.Status;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -63,9 +66,19 @@ public class AreaAttackAction extends Action {
                 finalMessageArr.add(actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.");
                 target.hurt(damage);
                 if (!target.isConscious()) {
-                    String deathMessage = new DeathAction(actor).execute(target, map);
-                    deathMessage = deathMessage.replace("\n", "").replace("\r", "");
-                    finalMessageArr.add(deathMessage);  // replace newlines with "". Places it into array again. This prevents extra newline above each death message
+
+                    if ( target.hasCapability(EnemyType.SKELETAL_TYPE) ) {		// if target is skeletal type, it swaps it for pile of bones
+                        Location location = map.locationOf(target);
+                        map.removeActor(target);
+                        map.addActor(new PileOfBones(target), location);
+                        finalMessageArr.add(target + " turns into a pile of bones.");
+                    }
+
+                    else {
+                        String deathMessage = new DeathAction(actor).execute(target, map);
+                        deathMessage = deathMessage.replace("\n", "").replace("\r", "");
+                        finalMessageArr.add(deathMessage);  // replace newlines with "". Places it into array again. This prevents extra newline above each death message
+                    }
                 }
 
             }
