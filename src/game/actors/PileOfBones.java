@@ -5,6 +5,7 @@ import edu.monash.fit2099.engine.actions.ActionList;
 import edu.monash.fit2099.engine.actions.DoNothingAction;
 import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
+import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
@@ -14,25 +15,36 @@ import game.actions.AttackAction;
 import game.actions.DeathAction;
 import game.actions.ReviveAction;
 import game.behaviours.FollowBehaviour;
+import game.managers.RuneManager;
 
 public class PileOfBones extends Actor {
 
     private int tick;
+    private int tickLimit;
     protected Actor previousActor;
     public PileOfBones(Actor previousActor) {
         super("Pile Of Bones", 'X', 1);
+        this.tickLimit = 3;
         this.previousActor = previousActor;
         this.addCapability(EnemyType.SKELETAL_TYPE);
         this.addCapability(Status.PILE_OF_BONES);
 
+
         for (WeaponItem weapon : previousActor.getWeaponInventory()) {
             this.addWeaponToInventory(weapon);
         }
+
+        for (Item item : previousActor.getItemInventory()) {
+            this.addItemToInventory(item);
+        }
+
+        int runes = RuneManager.getRunes(previousActor);
+        RuneManager.setRunes(this, runes);
     }
 
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
-        if (tick == 3) {
+        if (tick == tickLimit) {
             return new ReviveAction((Enemy) previousActor);
         }
         tick++;                         //tick counter every playTurn

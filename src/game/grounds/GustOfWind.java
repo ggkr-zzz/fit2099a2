@@ -7,7 +7,7 @@ import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.positions.NumberRange;
 import game.utils.RandomNumberGenerator;
 import game.actors.GiantDog;
-import game.actors.LoneWolfEnemy;
+import game.actors.LoneWolf;
 
 /**
  * A Gust of Wind Ground
@@ -47,7 +47,7 @@ public class GustOfWind extends Ground {
         int middle = (xValues.min() + xValues.max()) / 2;
         if (xLocation <= middle) {
             if ((chance <= 33) && !(location.containsAnActor())) {
-                location.addActor(new LoneWolfEnemy());
+                location.addActor(new LoneWolf());
             }
         } else {
             if ((chance <= 4) && !(location.containsAnActor())) {
