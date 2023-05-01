@@ -65,6 +65,6 @@ public class SellAction extends Action{
      * @return A string input representing the string to be displayed
      */
     public String menuDescription(Actor actor){
-        return actor + " sells " + weapon.toString() + " to Merchant Kale";
+        return actor + " sells " + weapon.toString() + " to Merchant Kale " + RuneManager.getSellPrice(weapon);
     }
 }
