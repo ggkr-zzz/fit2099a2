@@ -87,11 +87,7 @@ public class AttackAction extends Action {
 		target.hurt(damage);
 		if (!target.isConscious()) {
 
-			if (target.hasCapability(Status.PILE_OF_BONES)) {				// if target is a pile of bones, it kills it
-				result += new DeathAction(actor).execute(target, map);
-			}
-
-			else if ( target.hasCapability(EnemyType.SKELETAL_TYPE) ) {		// if target is skeletal type, it swaps it for pile of bones
+			if ( target.hasCapability(EnemyType.SKELETAL_TYPE) ) {		// if target is skeletal type, it swaps it for pile of bones
 				Location location = map.locationOf(target);
 				map.removeActor(target);
 				map.addActor(new PileOfBones(target), location);

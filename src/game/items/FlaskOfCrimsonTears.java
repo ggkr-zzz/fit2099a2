@@ -5,10 +5,12 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.items.Item;
 import game.actions.ConsumeAction;
 import game.actors.Status;
+import game.managers.Resettable;
 
-public class FlaskOfCrimsonTears extends ConsumableItem implements ConsumeHeal {
+public class FlaskOfCrimsonTears extends ConsumableItem implements Resettable {
 
     private int hpIncrement;
+
 
     /***
      * Constructor.
@@ -19,10 +21,8 @@ public class FlaskOfCrimsonTears extends ConsumableItem implements ConsumeHeal {
     public FlaskOfCrimsonTears() {
         super("Flask of Crimson Tears", 'c', false, 2);
         this.hpIncrement = 250;
-
     }
-
-    @Override
+    
     public int getHpIncrement() {
         return this.hpIncrement;
     }
@@ -38,4 +38,10 @@ public class FlaskOfCrimsonTears extends ConsumableItem implements ConsumeHeal {
     public String itemEffect() {
         return "250 health";
     }
+
+    @Override
+    public void reset() {
+        this.setUsages(this.getMaxUsages());
+    }
+
 }

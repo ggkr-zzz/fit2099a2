@@ -8,7 +8,9 @@ import game.actions.ConsumeAction;
 public abstract class ConsumableItem extends Item {
 
     private int usages;
+    private int maxUsages;
     private ConsumeAction consumeAction;
+
 
     /***
      * Constructor.
@@ -19,6 +21,7 @@ public abstract class ConsumableItem extends Item {
 
     public ConsumableItem(String name, char displayChar, boolean portable, int usages) {
         super(name, displayChar, portable);
+        this.maxUsages = usages;
         this.setUsages(usages);
         this.consumeAction = new ConsumeAction(this);
         this.addAction(consumeAction);
@@ -38,6 +41,10 @@ public abstract class ConsumableItem extends Item {
         if (usages == 0) {
             this.removeAction(consumeAction);
         }
+    }
+
+    protected int getMaxUsages() {
+        return maxUsages;
     }
 
     public abstract String consumeItem(Actor actor);

@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ResetManager {
     private List<Resettable> resettables;
-    private static ResetManager instance;
+    private static ResetManager instance = null;
 
     /**
      * HINT 1: where have we seen a private constructor before?
@@ -20,6 +20,16 @@ public class ResetManager {
      */
     private ResetManager() {
         this.resettables = new ArrayList<>();
+    }
+
+    /**
+     * @return ResetManager instance
+     */
+    public static ResetManager getInstance() {
+        if (instance == null) {
+            instance = new ResetManager();
+        }
+        return instance;
     }
 
     public void run() {}

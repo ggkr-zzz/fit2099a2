@@ -26,7 +26,6 @@ public class PileOfBones extends Actor {
         super("Pile Of Bones", 'X', 1);
         this.tickLimit = 3;
         this.previousActor = previousActor;
-        this.addCapability(EnemyType.SKELETAL_TYPE);
         this.addCapability(Status.PILE_OF_BONES);
 
 
