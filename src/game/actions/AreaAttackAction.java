@@ -6,19 +6,9 @@ import edu.monash.fit2099.engine.positions.Exit;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
-import game.actors.EnemyType;
-import game.actors.PileOfBones;
-import game.actors.Status;
-
 import java.util.ArrayList;
-import java.util.Random;
 
 public class AreaAttackAction extends Action {
-
-    /**
-     * Random number generator
-     */
-    private Random rand = new Random();
 
     /**
      * Weapon used for the attack
@@ -42,7 +32,7 @@ public class AreaAttackAction extends Action {
     @Override
     public String execute(Actor actor, GameMap map) {
 
-        ArrayList<String> finalMessageArr = new ArrayList<String>();    //Array with strings that will be combined later with newlines
+        ArrayList<String> finalMessageArr = new ArrayList<>();    //Array with strings that will be combined later with newlines
 
         String finalMessage = "";               // will be the final constructed string to be returned
 
@@ -57,29 +47,7 @@ public class AreaAttackAction extends Action {
 
             if (destination.containsAnActor()) {
                 Actor target = destination.getActor();
-
-                if (!(rand.nextInt(100) <= weapon.chanceToHit())) {
-                    finalMessageArr.add(actor + " misses " + target + ".");
-                }
-
-                int damage = weapon.damage();
-                finalMessageArr.add(actor + " " + weapon.verb() + " " + target + " for " + damage + " damage.");
-                target.hurt(damage);
-                if (!target.isConscious()) {
-
-                    if ( target.hasCapability(EnemyType.SKELETAL_TYPE) ) {		// if target is skeletal type, it swaps it for pile of bones
-                        Location location = map.locationOf(target);
-                        map.removeActor(target);
-                        map.addActor(new PileOfBones(target), location);
-                        finalMessageArr.add(target + " turns into a pile of bones.");
-                    }
-
-                    else {
-                        String deathMessage = new DeathAction(actor).execute(target, map);
-                        deathMessage = deathMessage.replace("\n", "").replace("\r", "");
-                        finalMessageArr.add(deathMessage);  // replace newlines with "". Places it into array again. This prevents extra newline above each death message
-                    }
-                }
+                finalMessageArr.add(new AttackAction(target, null).execute(target, map)); // attacks each actor around.
 
             }
 

@@ -8,7 +8,7 @@ import game.managers.RuneManager;
  * A Giant Dog enemy
  * @author Abdus Sami
  */
-public class GiantDog extends Enemy {
+public class GiantDog extends EnemyResettable {
 
     /**
      * A constructor for the GiantDog class

@@ -11,5 +11,6 @@ public enum Status {
     RESTING,
     AOE_CAPABLE,
     AOE_CAPABLE_WEAPON,
-    PILE_OF_BONES
+    PILE_OF_BONES,
+    RESET_GAME
 }

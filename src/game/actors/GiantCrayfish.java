@@ -8,7 +8,7 @@ import game.managers.RuneManager;
  * A Giant Crayfish enemy
  * @author Abdus Sami
  */
-public class GiantCrayfish extends Enemy {
+public class GiantCrayfish extends EnemyResettable {
 
     /**
      * A constructor for the GiantCrayfish class

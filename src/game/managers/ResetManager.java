@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 public class ResetManager {
-    private List<Resettable> resettables;
+    private final List<Resettable> resettables;
     private static ResetManager instance = null;
 
     /**
@@ -32,9 +32,17 @@ public class ResetManager {
         return instance;
     }
 
-    public void run() {}
+    public void run() {
+        for (Resettable resettable : resettables) {
+            resettable.reset();
+        }
+    }
 
-    public void registerResettable(Resettable resettable) {}
+    public void registerResettable(Resettable resettable) {
+        resettables.add(resettable);
+    }
 
-    public void removeResettable(Resettable resettable) {}
+    public void removeResettable(Resettable resettable) {
+        resettables.remove(resettable);
+    }
 }

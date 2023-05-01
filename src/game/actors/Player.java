@@ -6,11 +6,12 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.positions.GameMap;
 import edu.monash.fit2099.engine.displays.Menu;
+import game.actions.ResetGameAction;
 import game.items.FlaskOfCrimsonTears;
+import game.managers.ResetManager;
 import game.weapons.Club;
 import game.managers.Resettable;
 import game.managers.RuneManager;
-import game.weapons.Grossmesser;
 
 /**
  * Class representing the Player. It implements the Resettable interface.
@@ -23,6 +24,7 @@ import game.weapons.Grossmesser;
 public class Player extends Actor implements Resettable {
 
 	private final Menu menu = new Menu();
+	private final FlaskOfCrimsonTears flask = new FlaskOfCrimsonTears();
 
 	/**
 	 * Constructor.
@@ -35,8 +37,9 @@ public class Player extends Actor implements Resettable {
 		super(name, displayChar, hitPoints);
 		this.addCapability(Status.HOSTILE_TO_ENEMY);
 		this.addWeaponToInventory(new Club());
-		this.addItemToInventory(new FlaskOfCrimsonTears());
+		this.addItemToInventory(flask);
 		RuneManager.setRunes(this, 1000);
+		ResetManager.getInstance().registerResettable(this);
 	}
 
 	@Override
@@ -46,13 +49,17 @@ public class Player extends Actor implements Resettable {
 			return lastAction.getNextAction();
 
 		// return/print the console menu
-
 		display.println("Tarnished(" + hitPoints + "/" + maxHitPoints +") runes: " + RuneManager.getRunes(this));
+
+		if (map.locationOf(this).getGround().hasCapability(Status.RESET_GAME)){
+			actions.add(new ResetGameAction());
+		}
 		return menu.showMenu(this, actions, display);
 	}
 
 	@Override
 	public void reset() {
 		this.resetMaxHp(maxHitPoints);
+		this.flask.reset();
 	}
 }

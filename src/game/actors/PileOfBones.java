@@ -7,20 +7,16 @@ import edu.monash.fit2099.engine.actors.Actor;
 import edu.monash.fit2099.engine.displays.Display;
 import edu.monash.fit2099.engine.items.Item;
 import edu.monash.fit2099.engine.positions.GameMap;
-import edu.monash.fit2099.engine.positions.Location;
 import edu.monash.fit2099.engine.weapons.Weapon;
 import edu.monash.fit2099.engine.weapons.WeaponItem;
-import game.actors.Status;
 import game.actions.AttackAction;
-import game.actions.DeathAction;
 import game.actions.ReviveAction;
-import game.behaviours.FollowBehaviour;
 import game.managers.RuneManager;
 
-public class PileOfBones extends Actor {
+public class PileOfBones extends EnemyResettable {
 
     private int tick;
-    private int tickLimit;
+    private final int tickLimit;
     protected Actor previousActor;
     public PileOfBones(Actor previousActor) {
         super("Pile Of Bones", 'X', 1);
@@ -44,7 +40,7 @@ public class PileOfBones extends Actor {
     @Override
     public Action playTurn(ActionList actions, Action lastAction, GameMap map, Display display) {
         if (tick == tickLimit) {
-            return new ReviveAction((Enemy) previousActor);
+            return new ReviveAction((EnemyResettable) previousActor);
         }
         tick++;                         //tick counter every playTurn
         return new DoNothingAction();

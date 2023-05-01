@@ -8,7 +8,7 @@ import game.managers.RuneManager;
  * A Skeletal Bandit enemy
  * @author Abdus Sami
  */
-public class SkeletalBandit extends Enemy {
+public class SkeletalBandit extends EnemyResettable {
 
     /**
      * A constructor for the SkeletalBandit class

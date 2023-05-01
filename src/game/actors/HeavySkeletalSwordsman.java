@@ -5,7 +5,7 @@ import game.managers.RuneManager;
 import game.utils.RandomNumberGenerator;
 import game.weapons.Grossmesser;
 
-public class HeavySkeletalSwordsman extends Enemy {
+public class HeavySkeletalSwordsman extends EnemyResettable {
     public HeavySkeletalSwordsman() {
         super("Heavy Skeletal Swordsman", 'q', 153, EnemyType.SKELETAL_TYPE, new IntrinsicWeapon( 115, "spin", 85));        // need weapon class?
         int runes = RandomNumberGenerator.getRandomInt(35, 892);
